@@ -19,24 +19,11 @@ class user extends BasicQuery
 
     public function resolve($root, $args)
     {
-        $posts[] = (object) [
-            'id'       => 3264,
-            'title'    => 'Demo title 1',
-            'authorId' => 13242
-        ];
-
-        $posts[] = (object) [
-            'id'       => 883,
-            'title'    => 'Demo title 2',
-            'authorId' => 13242
-        ];
-
         $user = new \stdClass();
         $user->id = 13242;
         $user->username = 'Alexandros';
         $user->password = 'wr3v43Rg3';
         $user->email = 'alex@gmail.com';
-        $user->posts = $posts;
 
         return $user;
     }

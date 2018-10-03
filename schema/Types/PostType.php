@@ -24,16 +24,6 @@ class PostType extends ObjectTypeExtension
         parent::__construct();
     }
 
-    protected function username($userObj)
-    {
-        return $userObj->username;
-    }
-
-    protected function password($userObj)
-    {
-        return 'hashed: ' . hash('sha256', $userObj->password);
-    }
-
     public function resolveField($value, $args, $context, ResolveInfo $info) {
         $method = 'resolve' . ucfirst($info->fieldName);
         if (method_exists($this, $method)) {

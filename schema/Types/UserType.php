@@ -33,14 +33,31 @@ class UserType extends ObjectTypeExtension
         parent::__construct();
     }
 
-    protected function username($userObj)
+    protected function resolveUsername($userObj)
     {
         return $userObj->username;
     }
 
-    protected function password($userObj)
+    protected function resolvePassword($userObj)
     {
         return 'hashed: ' . hash('sha256', $userObj->password);
+    }
+
+    protected function resolvePosts()
+    {
+        $posts[] = (object) [
+            'id'       => 3264,
+            'title'    => 'Demo title 1',
+            'authorId' => 13242
+        ];
+
+        $posts[] = (object) [
+            'id'       => 883,
+            'title'    => 'Demo title 2',
+            'authorId' => 13242
+        ];
+
+        return $posts;
     }
 
     public function resolveField($value, $args, $context, ResolveInfo $info) {
