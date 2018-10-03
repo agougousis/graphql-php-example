@@ -25,6 +25,14 @@ class RootQueryType extends ObjectType
                     'args' => [
                         'message' => ['type' => Type::string()],
                     ],
+                    'resolve' => function ($root, $args) {
+                        $user = new \stdClass();
+                        $user->username = 'Alexandros';
+                        $user->password = 'wr3v43Rg3';
+                        $user->email = 'alex@gmail.com';
+
+                        return $user;
+                    }
                 ]
             ],
         ];

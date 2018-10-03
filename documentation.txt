@@ -1,0 +1,12 @@
+Calling the API with Postman:
+----------------------------
+
+POST: http://graphqlphp.oo
+
+body:
+
+ {
+ 	"query": "{ echo2(message: \"ssss\"), query2: echo2(message: \"aaaa\") }",
+ 	"variables": null
+ }
+
