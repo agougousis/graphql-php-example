@@ -12,12 +12,12 @@ use MySchema\RootMutationType;
 use GraphQL\Error\Debug;
 use GraphQL\Error\FormattedError;
 
-$debug = false;
+$debugModeOn = false;
 if (!empty($_GET['debug'])) {
     set_error_handler(function($severity, $message, $file, $line) use (&$phpErrors) {
         throw new ErrorException($message, 0, $severity, $file, $line);
     });
-    $debug = Debug::INCLUDE_DEBUG_MESSAGE | Debug::INCLUDE_TRACE;
+    $debugModeOn = Debug::INCLUDE_DEBUG_MESSAGE | Debug::INCLUDE_TRACE;
 }
 
 try {
@@ -38,12 +38,12 @@ try {
 
     $result = GraphQL::executeQuery($schema, $query, $rootValue, null, $variableValues);
 
-    $output = $result->toArray($debug);
+    $output = $result->toArray($debugModeOn);
     $httpStatus = 200;
 } catch (\Exception $e) {
     $httpStatus = 500;
     $output['errors'] = [
-        FormattedError::createFromException($error, $debug)
+        FormattedError::createFromException($error, $debugModeOn)
     ];
 }
 header('Content-Type: application/json; charset=UTF-8', true, $httpStatus);
