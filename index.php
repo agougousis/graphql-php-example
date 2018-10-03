@@ -9,6 +9,16 @@ use GraphQL\Type\Schema;
 use GraphQL\GraphQL;
 use MySchema\RootQueryType;
 use MySchema\RootMutationType;
+use GraphQL\Error\Debug;
+use GraphQL\Error\FormattedError;
+
+$debug = false;
+if (!empty($_GET['debug'])) {
+    set_error_handler(function($severity, $message, $file, $line) use (&$phpErrors) {
+        throw new ErrorException($message, 0, $severity, $file, $line);
+    });
+    $debug = Debug::INCLUDE_DEBUG_MESSAGE | Debug::INCLUDE_TRACE;
+}
 
 try {
     $rootQueryType = new RootQueryType();
@@ -27,13 +37,14 @@ try {
     $rootValue = ['prefix' => 'You said: '];
 
     $result = GraphQL::executeQuery($schema, $query, $rootValue, null, $variableValues);
-    $output = $result->toArray();
+
+    $output = $result->toArray($debug);
+    $httpStatus = 200;
 } catch (\Exception $e) {
-    $output = [
-        'error' => [
-            'message' => $e->getMessage()
-        ]
+    $httpStatus = 500;
+    $output['errors'] = [
+        FormattedError::createFromException($error, $debug)
     ];
 }
-header('Content-Type: application/json; charset=UTF-8');
+header('Content-Type: application/json; charset=UTF-8', true, $httpStatus);
 echo json_encode($output);
