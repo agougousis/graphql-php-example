@@ -1,7 +1,7 @@
 <?php
 namespace MySchema;
 
-use MySchema\Types\UserType;
+use App\MySchema\Types\UserType;
 
 class TypeRegistry
 {

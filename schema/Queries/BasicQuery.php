@@ -1,6 +1,6 @@
 <?php
 
-namespace MySchema\Queries;
+namespace App\MySchema\Queries;
 
 class BasicQuery implements QueryDefinition
 {

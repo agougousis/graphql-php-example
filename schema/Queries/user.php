@@ -1,9 +1,9 @@
 <?php
 
-namespace MySchema\Queries;
+namespace App\MySchema\Queries;
 
 use GraphQL\Type\Definition\Type;
-use MySchema\TypeRegistry;
+use App\MySchema\TypeRegistry;
 
 class user extends BasicQuery
 {

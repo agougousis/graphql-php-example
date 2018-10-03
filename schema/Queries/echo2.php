@@ -1,6 +1,6 @@
 <?php
 
-namespace MySchema\Queries;
+namespace App\MySchema\Queries;
 
 use GraphQL\Type\Definition\Type;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace MySchema;
+namespace App\MySchema;
 
 use GraphQL\Type\Definition\ObjectType;
-use MySchema\Queries\QueryDefinition;
+use App\MySchema\Queries\QueryDefinition;
 
 class RootQueryType extends ObjectType
 {
