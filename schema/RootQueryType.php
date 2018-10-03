@@ -3,39 +3,38 @@
 namespace MySchema;
 
 use GraphQL\Type\Definition\ObjectType;
-use GraphQL\Type\Definition\Type;
+use MySchema\Queries\QueryDefinition;
 
 class RootQueryType extends ObjectType
 {
+    private $queriesToExpose = [
+        'echo2',
+        'user'
+    ];
+
     public function __construct()
     {
         $config = [
-            'fields' => [
-                'echo2' => [
-                    'type' => Type::string(),
-                    'args' => [
-                        'message' => ['type' => Type::string()],
-                    ],
-                    'resolve' => function ($root, $args) {
-                        return $root['prefix'] . $args['message'];
-                    }
-                ],
-                'user' => [
-                    'type' => TypeRegistry::userType(),
-                    'args' => [
-                        'message' => ['type' => Type::string()],
-                    ],
-                    'resolve' => function ($root, $args) {
-                        $user = new \stdClass();
-                        $user->username = 'Alexandros';
-                        $user->password = 'wr3v43Rg3';
-                        $user->email = 'alex@gmail.com';
-
-                        return $user;
-                    }
-                ]
-            ],
+            'fields' => []
         ];
+
+        foreach ($this->queriesToExpose as $queryName) {
+            $queryDefinition = $this->getQueryDefinition($queryName);
+
+            $config['fields'][$queryName] = [
+                'type' => $queryDefinition->getType(),
+                'args' => $queryDefinition->getArgs(),
+                'resolve' => $queryDefinition->getResolveFunction()
+            ];
+        }
+
         parent::__construct($config);
+    }
+
+    private function getQueryDefinition($queryName): QueryDefinition
+    {
+        $queryClassName = 'MySchema\Queries\\' . $queryName;
+
+        return new $queryClassName;
     }
 }

@@ -14,7 +14,7 @@ use GraphQL\Error\FormattedError;
 
 $debugModeOn = false;
 if (!empty($_GET['debug'])) {
-    set_error_handler(function($severity, $message, $file, $line) use (&$phpErrors) {
+    set_error_handler(function ($severity, $message, $file, $line) use (&$phpErrors) {
         throw new ErrorException($message, 0, $severity, $file, $line);
     });
     $debugModeOn = Debug::INCLUDE_DEBUG_MESSAGE | Debug::INCLUDE_TRACE;
@@ -40,10 +40,10 @@ try {
 
     $output = $result->toArray($debugModeOn);
     $httpStatus = 200;
-} catch (\Exception $e) {
+} catch (\Exception $exception) {
     $httpStatus = 500;
     $output['errors'] = [
-        FormattedError::createFromException($error, $debugModeOn)
+        FormattedError::createFromException($exception, $debugModeOn)
     ];
 }
 header('Content-Type: application/json; charset=UTF-8', true, $httpStatus);
