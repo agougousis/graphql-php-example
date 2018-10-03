@@ -1,0 +1,30 @@
+     Call the resolver of the query
+
+     If the Resource type that the query returns is scalar
+
+          send the value returned by the resolver
+
+     else
+
+          instantiate the Resource type and initiate its resolution
+
+     For every field
+
+          If there is a resolver
+
+              call the resolver and get the value
+
+          else
+
+              try to get the value from the rootObject
+
+          If the type is scalar
+
+              assign the returned value to the field
+
+          else
+
+              Instantiate the Resource type of the field and initiate its resolution
+
+      Return the built object
+

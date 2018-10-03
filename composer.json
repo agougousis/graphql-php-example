@@ -1,0 +1,8 @@
+{
+    "require": {
+        "webonyx/graphql-php": "^0.12.5"
+    },
+    "autoload": {
+        "psr-4": {"MySchema\\": "schema/"}
+    }
+}
