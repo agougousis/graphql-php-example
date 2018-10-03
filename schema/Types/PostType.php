@@ -4,30 +4,21 @@ namespace App\MySchema\Types;
 
 use GraphQL\Type\Definition\Type;
 use GraphQL\Type\Definition\ResolveInfo;
-use App\MySchema\TypeRegistry;
 
-class UserType extends ObjectTypeExtension
+class PostType extends ObjectTypeExtension
 {
     public function __construct()
     {
         $this->fields = [
             'id' => [
-              'type' => Type::int(),
+                'type' => Type::int(),
             ],
-            'username' => [
-                'type' => Type::string(),
-                'defaultValue' => 'defaultUsername',
-            ],
-            'password' => [
-                'type' => Type::string(),
-                'defaultValue' => 'defaultPassword',
-            ],
-            'email' => [
+            'title' => [
                 'type' => Type::string(),
             ],
-            'posts' => [
-                'type' => Type::listOf(TypeRegistry::postType()),
-            ]
+            'authorId' => [
+                'type' => Type::int(),
+            ],
         ];
 
         parent::__construct();

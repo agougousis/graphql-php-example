@@ -33,7 +33,7 @@ class RootQueryType extends ObjectType
 
     private function getQueryDefinition($queryName): QueryDefinition
     {
-        $queryClassName = 'MySchema\Queries\\' . $queryName;
+        $queryClassName = 'App\MySchema\Queries\\' . $queryName;
 
         return new $queryClassName;
     }

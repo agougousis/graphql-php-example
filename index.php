@@ -7,8 +7,8 @@ require_once __DIR__ . './vendor/autoload.php';
 
 use GraphQL\Type\Schema;
 use GraphQL\GraphQL;
-use MySchema\RootQueryType;
-use MySchema\RootMutationType;
+use App\MySchema\RootQueryType;
+use App\MySchema\RootMutationType;
 use GraphQL\Error\Debug;
 use GraphQL\Error\FormattedError;
 
