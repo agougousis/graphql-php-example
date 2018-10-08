@@ -10,7 +10,7 @@ class UserType extends ObjectTypeExtension
 {
     public function __construct()
     {
-        $this->fields = [
+        $this->setFields([
             'id' => [
               'type' => Type::int(),
             ],
@@ -28,7 +28,7 @@ class UserType extends ObjectTypeExtension
             'posts' => [
                 'type' => Type::listOf(TypeRegistry::postType()),
             ]
-        ];
+        ]);
 
         parent::__construct();
     }

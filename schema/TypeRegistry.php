@@ -6,7 +6,7 @@ use App\MySchema\Types\PostType;
 
 class TypeRegistry
 {
-    private  static $userType;
+    private static $userType;
     private static $postType;
 
     public static function userType()

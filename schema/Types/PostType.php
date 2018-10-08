@@ -3,13 +3,14 @@
 namespace App\MySchema\Types;
 
 use GraphQL\Type\Definition\Type;
+use App\MySchema\TypeRegistry;
 use GraphQL\Type\Definition\ResolveInfo;
 
 class PostType extends ObjectTypeExtension
 {
     public function __construct()
     {
-        $this->fields = [
+        $this->setFields([
             'id' => [
                 'type' => Type::int(),
             ],
@@ -19,9 +20,24 @@ class PostType extends ObjectTypeExtension
             'authorId' => [
                 'type' => Type::int(),
             ],
-        ];
+            'author' => [
+                'type' => TypeRegistry::userType(),
+            ],
+        ]);
 
         parent::__construct();
+    }
+
+    protected function resolveAuthor($postObj)
+    {
+        $user = (object) [
+          'id' => $postObj->authorId,
+          'username' => 'Alexandros',
+          'password' => 'wr3v43Rg3',
+          'email' => 'alex@gmail.com'
+        ];
+
+        return $user;
     }
 
     public function resolveField($value, $args, $context, ResolveInfo $info) {

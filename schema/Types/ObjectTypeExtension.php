@@ -6,7 +6,7 @@ use GraphQL\Type\Definition\ObjectType;
 
 class ObjectTypeExtension extends ObjectType {
 
-    protected $fields = [];
+    protected $fields;
 
     public function __construct()
     {
@@ -17,5 +17,11 @@ class ObjectTypeExtension extends ObjectType {
         }
 
         parent::__construct($config);
+    }
+
+    protected function setFields($fields){
+        $this->fields = function() use($fields) {
+            return $fields;
+        };
     }
 }
